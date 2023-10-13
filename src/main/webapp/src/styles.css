@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+*{
+    font-family: "Poppins";
+}
+
+body, html{
+    padding: 0;
+    margin: 0;
+}
+
+.simple-nav{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-btn{
+    border-radius: 6px;
+    background: none;
+    border-width: 0;
+    padding: 10px;
+    background-color: #4F45E4;
+    color: white;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+input, textarea, select{
+    width: 100%;
+}
+
+.add-btn2{
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 6px;
+    background: none;
+    border-width: 0;
+    padding: 10px;
+    background-color: #458fe4;
+    color: white;
+    font-weight: normal;
+}
+
+.edit-btn2{
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 6px;
+    background: none;
+    border-width: 0;
+    padding: 10px;
+    background-color: #efb244;
+    color: white;
+    font-weight: normal;
+}
+
+table{
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+tr{
+    border-bottom: 1px solid rgba(101, 97, 97, 0.6);
+}
+
+th{
+    padding: 10px;
+    font-weight: 500;
+}
+
+.module{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+form > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+form{
+    border-radius: 6px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid black
+}
+
+.close{
+    font-weight: 700;
+    font-size: 15px;
+    float: right;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.costum-form{
+    border: none;
+    width: 50vw;
+    margin: auto 0;
+}
+
+.costum-form > *{
+    width: 100%;
+}
+
+.title{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bi-trash-fill{
+    color: #e74f4f;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.form-delete{
+    display: inline-block;
+    border: none;
+}
+
+.btn-delete{
+    background: none;
+    border: none;
+}
+
+.bi-pencil{
+    color: #efb244;
+    font-size: 30px;
+}
+td{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+}
+
+.search-employee{
+    border: none;
+    border-bottom: 1px solid black;
+    padding-bottom: 15px;
+    width: 200px;
+    outline: none;
+}
+
+.form-search{
+    border: none;
+}
+
+.input-label{
+    margin-top: 20px;
+    width: 100%;
+}
+
+.input-label > label{
+    font-weight: 600;
+}
+
+.goback-btn{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+.search-btn{
+    border-radius: 6px;
+    background: none;
+    border-width: 0;
+    padding: 10px;
+    background-color: #3f97c9;
+    color: white;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+.btns{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
