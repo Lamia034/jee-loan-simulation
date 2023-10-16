@@ -2,8 +2,6 @@ package com.bank.Service;
 
 import com.bank.DAO.ClientDAOImpl;
 import com.bank.Entity.Client;
-import com.bank.Entity.CurrentAccount;
-import com.bank.Entity.SavingAccount;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,20 +52,5 @@ public class ClientService {
                 System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s] EMPLOYEE_REGISTRATION[%d]   *****", c.getCode(), c.getFirstName(), c.getLastName(), c.getBirthDay().toString(), c.getPhone(), c.getAddress(), clt.getEmployee().getRegistrationNbr()));
             }
         });
-    }
-
-    public void getClientAccount(Client clt){
-            ClientDao.getAccounts(clt).ifPresent((client)->{
-                System.out.println("*****   COMPTES D'EMPRANGES   *****");
-                for(Object saving:client.getAccounts().get("saving")){
-                    SavingAccount tmp = (SavingAccount) saving;
-                    System.out.println(String.format("*****   CODE[%s] BALANCE[%f] DATE_CREATION[%s] TAX[%f]  *****", tmp.getCode(), tmp.getBalance(), tmp.getCreationDate().toString(), tmp.getTax()));
-                }
-                System.out.println("*****   COMPTES CURRENTS   *****");
-                for(Object saving:client.getAccounts().get("current")){
-                    CurrentAccount tmp = (CurrentAccount) saving;
-                    System.out.println(String.format("*****   CODE[%s] BALANCE[%f] DATE_CREATION[%s] DECOUVERT[%f]  *****", tmp.getCode(), tmp.getBalance(), tmp.getCreationDate().toString(), tmp.getOverDraft()));
-                }
-            });
     }
 }

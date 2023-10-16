@@ -1,146 +1,116 @@
 package com.bank.DAO;
 
-import com.bank.Connection.JDBCConnection;
+import com.bank.Connection.Connection;
 import com.bank.Entity.Agency;
-import com.bank.Exception.InsertionException;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class AgencyDAOImpl implements AgencyDAO{
-    Connection connection;
+public class AgencyDAOImpl implements AgencyDAO {
+    private Connection c = Connection.getInstance();
+    private EntityManager entityManager = c.getManager();
+    //@PersistenceContext(name = "default")
+    //private EntityManager entityManager;
 
-    public AgencyDAOImpl(){
-        connection = JDBCConnection.getConnection();
-    }
     @Override
+    @Transactional
     public Optional<Agency> create(Agency agency) {
-        try{
-            if(agency == null)
-                throw new Exception("*****   Impossible d'ajouter une agence vide   *****");
-            String query = "INSERT INTO agency(name, address, phone) VALUES(?, ?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, agency.getName());
-            stmt.setString(2, agency.getAddress());
-            stmt.setString(3, agency.getPhone());
-            int affectedRows = stmt.executeUpdate();
-            if(affectedRows == 0)
-                throw new InsertionException();
-            else{
-                ResultSet generatedKeys = stmt.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    String generatedId = generatedKeys.getString(1);
-                    agency.setCode(generatedId);
-                }
-                return Optional.of(agency);
-            }
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            entityManager.getTransaction().begin();
+            if (agency == null)
+                throw new Exception("***** Impossible d'ajouter une agence vide *****");
+            entityManager.persist(agency);
+            entityManager.getTransaction().commit();
+            return Optional.of(agency);
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
     }
 
     @Override
+    @Transactional
     public int delete(String code) {
-        try{
-            if(code == "")
-                throw new Exception("*****   LE CODE DE L'AGENCE NE PEUT PAS ETRE VIDE   *****");
-            String query = "DELETE FROM agency WHERE code = ?";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, code);
-            int affectedRows = stmt.executeUpdate();
-            if(affectedRows == 0)
-                throw new Exception("*****   AUCUNNE AGENCE N'EST SUPPRIMER   *****");
-            return affectedRows;
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            if (code.equals(""))
+                throw new Exception("***** LE CODE DE L'AGENCE NE PEUT PAS ETRE VIDE *****");
+            entityManager.getTransaction().begin();
+            Agency agency = entityManager.find(Agency.class, code);
+            if (agency != null) {
+                entityManager.remove(agency);
+                entityManager.getTransaction().commit();
+                return 1;
+            } else {
+                throw new Exception("***** AUCUNNE AGENCE N'EST SUPPRIMER *****");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return 0;
     }
 
     @Override
+    @Transactional
     public Optional<Agency> update(Agency agency) {
-        try{
-            if(agency == null)
-                throw new Exception("*****   Impossible d'ajouter une agence vide   *****");
-            String query = "UPDATE agency SET name = ?, address = ?, phone = ? WHERE code = ? ";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, agency.getName());
-            stmt.setString(2, agency.getAddress());
-            stmt.setString(3, agency.getPhone());
-            stmt.setString(4, agency.getCode());
-            int affectedRows = stmt.executeUpdate();
-            if(affectedRows == 1)
-                return Optional.of(agency);
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            entityManager.getTransaction().begin();
+            if (agency == null)
+                throw new Exception("***** Impossible d'ajouter une agence vide *****");
+            entityManager.merge(agency);
+            entityManager.getTransaction().commit();
+            return Optional.of(agency);
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
     }
 
     @Override
     public Optional<Agency> findByCode(String code) {
-        try{
-            if(code == "")
-                throw new Exception("*****   LE CODE DE L'AGENCE NE PEUT PAS ETRE VIDE   *****");
-            String query = "SELECT *  FROM agency WHERE code = ?";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, code);
-            ResultSet result = stmt.executeQuery();
-            while(result.next()){
-                return Optional.of(
-                        new Agency(result.getString("code"), result.getString("name"), result.getString("address"), result.getString("phone"))
-                );
-            }
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            if (code.equals(""))
+                throw new Exception("***** LE CODE DE L'AGENCE NE PEUT PAS ETRE VIDE *****");
+            entityManager.getTransaction().begin();
+            Agency agency = entityManager.find(Agency.class, code);
+            entityManager.getTransaction().commit();
+            return Optional.ofNullable(agency);
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
     }
 
     @Override
     public Optional<List<Agency>> find() {
-        try{
-            List<Agency> list = new ArrayList<>();
-            String query = "SELECT *  FROM agency";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            ResultSet result = stmt.executeQuery();
-            while(result.next()){
-                list.add(
-                        new Agency(result.getString("code"), result.getString("name"), result.getString("address"), result.getString("phone"))
-                );
-            }
-            return Optional.of(list);
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            entityManager.getTransaction().begin();
+            List<Agency> agencies = entityManager.createQuery("SELECT a FROM Agency a", Agency.class).getResultList();
+            entityManager.getTransaction().commit();
+            return Optional.ofNullable(agencies);
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
     }
 
     @Override
     public Optional<Agency> findByAddress(String address) {
-        try{
-            if(address == "")
-                throw new Exception("*****   L'ADRESS DE L'AGENCE NE PEUT PAS ETRE VIDE   *****");
-            String query = "SELECT *  FROM agency WHERE address = ?";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, address);
-            ResultSet result = stmt.executeQuery();
-            while(result.next()){
-                return Optional.of(
-                        new Agency(result.getString("code"), result.getString("name"), result.getString("address"), result.getString("phone"))
-                );
-            }
-            return Optional.empty();
-        }catch(Exception e){
-            System.out.println(e.getClass()+"::"+e.getMessage());
+        try {
+            if (address.equals(""))
+                throw new Exception("***** L'ADRESS DE L'AGENCE NE PEUT PAS ETRE VIDE *****");
+            entityManager.getTransaction().begin();
+            Agency agency = entityManager.createQuery("SELECT a FROM Agency a WHERE a.address = :address", Agency.class)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            entityManager.getTransaction().commit();
+            return Optional.ofNullable(agency);
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
     }

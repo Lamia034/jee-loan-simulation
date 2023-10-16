@@ -1,5 +1,6 @@
 package com.bank.Entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -11,8 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@Entity
 public class Agency {
     @NonNull
+    @Id
     private String code;
     @NonNull
     private String name;
@@ -20,7 +23,14 @@ public class Agency {
     private String address;
     @NonNull
     private String phone;
-    private List<Employee> employees = new ArrayList<>();
-    private List<Client> clients = new ArrayList<>();
-    private List<Employee> employeeHistory = new ArrayList<>();
+    @OneToMany
+    private List<Credit> credit;
+    @OneToMany
+    private List<Employee> employees;
+    @OneToMany
+    private List<Client> clients;
+    @ManyToMany
+    private List<Employee> employeeHistory;
+    @OneToMany
+    private List<AgencyEmployee> history;
 }
