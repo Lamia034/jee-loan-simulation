@@ -4,6 +4,7 @@ import com.bank.DAO.EmployeeDAOImpl;
 import com.bank.Entity.Employee;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,11 @@ public class EmployeeService {
         this.EmployeeDao = EmployeeDao;
     }*/
 
-
+    public Employee findByRegistrationNbr(int registrationNbr) throws Exception{
+        if (registrationNbr <= 0)
+            throw new Exception("*****   EMPLOYEE INVALIDE   *****");
+        return EmployeeDao.findByRegistrationNbr(registrationNbr).get();
+    }
 
     public Employee addEmployee(Employee emp, LocalDate date) throws Exception{
             if(emp == null || date == null)

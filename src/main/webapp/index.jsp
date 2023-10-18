@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/assets/header.jsp" %>
-<div class="w-[400px] bg-white p-6 flex flex-col gap-5">
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="${pageContext.servletContext.contextPath}/src/dist/output.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#EEF1F6] flex justify-center items-center gap-8 w-screen h-screen">
+<div class="w-[400px] bg-white p-6 flex flex-col gap-5 form1">
     <p class="font-bold">Loan Calculator</p>
     <div class="flex flex-col gap-4">
         <label for="amount" class="font-bold text-[12px]">Loan Amount</label>
@@ -19,7 +31,7 @@
         </div>
     </div>
 </div>
-<div class="w-[400px] bg-white p-6 flex flex-col gap-3">
+<div class="w-[400px] bg-white p-6 flex flex-col gap-3 form2">
     <p class="font-bold">Summary</p>
     <p class="w-full bg-gray-300 text-right font-bold px-3 py-1">
         total
@@ -40,7 +52,60 @@
         <span>total</span>
         <span class="total">0 dh</span>
     </div>
-    <button class="w-full bg-[#01B062] text-[15px] rounded-md p-2 text-white">next</button>
+    <button class="w-full bg-[#01B062] text-[15px] rounded-md p-2 text-white backTo">next</button>
+</div>
+<div class="w-[500px] rounded-sm p-4 bg-white form3 hidden">
+    <button>Ajouter client</button>
+    <form action="${pageContext.servletContext.contextPath}/addLoan" method="POST" class="w-full flex flex-col justify-center items-start gap-3">
+        <p class="text-center w-full font-bold">Formulaire d'ajout</p>
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="value" class="font-semibold">Valeur</label>
+            <input required type="number" name="value" id="value" value="" disabled class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">
+        </div>
+<%--        <div class="flex flex-col justify-center items-start w-full">--%>
+<%--            <label for="status" class="font-semibold">Status</label>--%>
+<%--            <select required id="status" name="status" class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">--%>
+<%--                <option value="">value</option>--%>
+<%--            </select>--%>
+<%--        </div>--%>
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="duration" class="font-semibold">Mensialité</label>
+            <input required type="number" name="value" id="duration" value="" disabled class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">
+        </div>
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="remark" class="font-semibold">Remarque</label>
+            <textarea required name="remark" id="remark" class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1"></textarea>
+        </div>
+        <input hidden value="0" name="tax">
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="client" class="font-semibold">Client</label>
+            <select required id="client" name="client" class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">
+                <c:forEach items="${clients}" var="client">
+                    <option value="${client.code}">${client.firstName} ${client.lastName}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="employee" class="font-semibold">Employee</label>
+            <select required id="employee" name="employee" class=" p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">
+                <c:forEach items="${emploies}" var="employee">
+                    <option value="${employee.registrationNbr}">${employee.firstName} ${employee.lastName}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="flex flex-col justify-center items-start w-full">
+            <label for="agency" class="font-semibold">Agence</label>
+            <select required id="agency" name="agency" class="p-2 w-full order border-[2px] border-gray-300 rounded-[4px] mt-1">
+                <c:forEach items="${agencies}" var="agency">
+                    <option value="${agency.code}">${agency.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="flex w-full justify-center items-center gap-2">
+            <button class="w-full bg-[#01B062] p-4 text-white rounded-md">Ajouter crédit</button>
+            <span class="w-full bg-gray-300 p-4 text-black rounded-md text-center cursor-pointer backTo">Revenir</span>
+        </div>
+    </form>
 </div>
 <script src="${pageContext.servletContext.contextPath}/src/script.js" type="text/javascript"></script>
 <%@ include file="/WEB-INF/assets/footer.jsp" %>

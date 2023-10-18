@@ -21,16 +21,18 @@ public class ClientService {
         System.out.println(String.format("*****   NOMBRE DES ELEMENTS SUPPRIMEES EST:%d   *****", result));
     }
 
-    public void findAllClients(){
+    public List<Client> findAllClients(){
         try{
             Optional<List<Client>> listClt= ClientDao.findAll();
-            listClt.ifPresent((list)->{
-                for(Client clt:list)
-                    System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s]  EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
-            });
+            return listClt.get();
+//            listClt.ifPresent((list)->{
+//                for(Client clt:list)
+//                    System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s]  EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
+//            });
         }catch(Exception e){
             System.out.println(e.getClass()+"::"+e.getMessage());
         }
+        return null;
     }
 
     public Client findClientByCode(String code){

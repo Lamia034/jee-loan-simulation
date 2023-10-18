@@ -39,7 +39,4 @@ public class Credit {
     @ManyToOne
     //@Column(name = "employee_registrationNbr")
     private Employee employee;
-    @NonNull
-    @ManyToOne
-    private Credit credit;
 }

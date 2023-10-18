@@ -1,5 +1,6 @@
 package com.bank.DAO;
 
+import com.bank.Connection.Connection;
 import com.bank.Entity.Client;
 import com.bank.Exception.DeleteException;
 import com.bank.Exception.InsertionException;
@@ -10,7 +11,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -22,16 +22,18 @@ import java.util.Optional;
 @ApplicationScoped
 public class ClientDAOImpl implements ClientDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private com.bank.Connection.Connection c = Connection.getInstance();
+    private EntityManager entityManager = c.getManager();
 
     @Override
     @Transactional
     public Optional<Client> create(Client client) {
         try {
+            entityManager.getTransaction().begin();
             if (client == null)
                 throw new Exception("***** Impossible d'ajouter un client vide *****");
             entityManager.persist(client);
+            entityManager.getTransaction().commit();
             return Optional.of(client);
         } catch (Exception e) {
             System.out.println(e.getClass() + "::" + e.getMessage());
@@ -43,11 +45,13 @@ public class ClientDAOImpl implements ClientDAO {
     @Transactional
     public int delete(String code) {
         try {
+            entityManager.getTransaction().begin();
             if (code.isEmpty())
                 throw new Exception("***** CODE CLIENT EST VIDE *****");
             Client client = entityManager.find(Client.class, code);
             if (client != null) {
                 entityManager.remove(client);
+                entityManager.getTransaction().commit();
                 return 1;
             } else {
                 throw new DeleteException("***** AUCUN CLIENT N'EST SUPPRIMÉ *****");
@@ -86,7 +90,9 @@ public class ClientDAOImpl implements ClientDAO {
     @Override
     public Optional<List<Client>> findAll() {
         try {
+            entityManager.getTransaction().commit();
             List<Client> clients = entityManager.createQuery("SELECT c FROM Client c", Client.class).getResultList();
+            entityManager.getTransaction().commit();
             return Optional.ofNullable(clients);
         } catch (Exception e) {
             System.out.println(e.getClass() + "::" + e.getMessage());

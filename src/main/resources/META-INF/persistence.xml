@@ -19,7 +19,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernate"/>
             <property name="jakarta.persistence.jdbc.user" value="aymane"/>
             <property name="jakarta.persistence.jdbc.password" value="aymane@123"/>
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="jakarta.persistence.schema-generation.database.action" value="" />
             <property name = "hibernate.show_sql" value = "true" />
         </properties>
     </persistence-unit>
