@@ -42,6 +42,7 @@ public class CreditDAOImpl implements CreditDAO {
             Credit credit = entityManager.find(Credit.class, id);
             entityManager.getTransaction().commit();
             if (credit != null) {
+                entityManager.getTransaction().begin();
                 entityManager.remove(credit);
                 entityManager.getTransaction().commit();
                 return 1;
@@ -65,6 +66,7 @@ public class CreditDAOImpl implements CreditDAO {
             entityManager.getTransaction().commit();
             if (credit != null) {
                 credit.setStatus(status);
+                entityManager.getTransaction().begin();
                 entityManager.merge(credit);
                 entityManager.getTransaction().commit();
                 return Optional.of(credit);

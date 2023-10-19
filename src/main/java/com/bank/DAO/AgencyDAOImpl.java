@@ -41,7 +41,9 @@ public class AgencyDAOImpl implements AgencyDAO {
                 throw new Exception("***** LE CODE DE L'AGENCE NE PEUT PAS ETRE VIDE *****");
             entityManager.getTransaction().begin();
             Agency agency = entityManager.find(Agency.class, code);
+            entityManager.getTransaction().commit();
             if (agency != null) {
+                entityManager.getTransaction().begin();
                 entityManager.remove(agency);
                 entityManager.getTransaction().commit();
                 return 1;

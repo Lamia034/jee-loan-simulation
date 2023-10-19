@@ -29,14 +29,11 @@ public class Credit {
     @NonNull
     private double loanTax;
     @OneToOne
-    //@Column(name = "client_code")
     private Client client;
     @NonNull
     @ManyToOne
-    //@Column(name = "agency_code")
     private Agency agency;
     @NonNull
     @ManyToOne
-    //@Column(name = "employee_registrationNbr")
     private Employee employee;
 }

@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class EmployeeService {
     public Employee addEmployee(Employee emp, LocalDate date) throws Exception{
             if(emp == null || date == null)
                 throw new Exception("*****   EMPLOYEE|DATE EST INVALIDE   *****");
-            Optional<Employee> optionalEmp = EmployeeDao.create(emp, date);
+            Optional<Employee> optionalEmp = EmployeeDao.create(emp);
             return optionalEmp.get();
     }
 
@@ -65,7 +66,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(){
-        return EmployeeDao.findAll().get();
+        return EmployeeDao.findAll().orElse(new ArrayList<Employee>());
     }
 
 }

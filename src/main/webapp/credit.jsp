@@ -1,23 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>test</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="${pageContext.servletContext.contextPath}/src/dist/output.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
+<%@ include file="WEB-INF/assets/header.jsp"%>
 <body class="bg-[#EEF1F6] flex justify-center items-center gap-8 w-screen h-screen">
 <div class="w-[400px] bg-white p-6 flex flex-col gap-5 form1">
     <p class="font-bold">Loan Calculator</p>
     <div class="flex flex-col gap-4">
         <label for="amount" class="font-bold text-[12px]">Loan Amount</label>
-        <input type="number" min="1000" name="amount" id="amount" class="border border-[2px] border-gray-300 rounded-[4px] p-1 w-full ">
+        <input type="number" min="1000" max="10000" name="amount" id="amount" class="border border-[2px] border-gray-300 rounded-[4px] p-1 w-full ">
     </div>
     <div class="flex flex-col gap-3">
         <label for="months" class="font-bold flex w-full justify-between items-center text-[12px]">

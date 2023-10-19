@@ -6,6 +6,7 @@ import com.bank.Entity.Employee;
 import com.bank.Exception.DeleteException;
 import com.bank.Exception.InsertionException;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     private com.bank.Connection.Connection c = Connection.getInstance();
@@ -21,7 +23,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     @Transactional
-    public Optional<Employee> create(Employee employee, LocalDate date) {
+    public Optional<Employee> create(Employee employee) {
         try {
             entityManager.getTransaction().begin();
             if (employee == null)
@@ -61,6 +63,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             Employee employee = entityManager.find(Employee.class, registrationNbr);
             entityManager.getTransaction().commit();
             if (employee != null) {
+                entityManager.getTransaction().begin();
                 entityManager.remove(employee);
                 entityManager.getTransaction().commit();
                 return 1;
@@ -128,6 +131,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 throw new Exception("***** LE CODE AGENCE DE L'AGENCE NE DOIT PAS ETRE VIDE *****");
             emp.setAgency(entityManager.find(Agency.class, agencyCode));
             entityManager.getTransaction().commit();
+            entityManager.getTransaction().begin();
             entityManager.merge(emp);
             entityManager.getTransaction().commit();
             return Optional.of(emp);

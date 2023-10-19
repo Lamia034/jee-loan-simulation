@@ -2,9 +2,11 @@ package com.bank.Service;
 
 import com.bank.DAO.AgencyDAOImpl;
 import com.bank.Entity.Agency;
+import com.bank.Entity.Employee;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,12 +56,18 @@ public class AgencyService {
 
     public List<Agency> find(){
         Optional<List<Agency>> optionalAgency = agencyDao.find();
-        return optionalAgency.get();
+        return optionalAgency.orElse(new ArrayList<Agency>());
     }
 
     public Agency findByAddress(String address) throws Exception {
         if(address == "")
             throw new Exception("*****   L'ADRESSE D'AGENCE NE PAS ETRE VIDE   *****");
         return agencyDao.findByAddress(address).get();
+    }
+
+    public Agency findByCode(String code) throws Exception {
+        if(code == "")
+            throw new Exception("*****   CODE D'AGENCE NE PAS ETRE VIDE   *****");
+        return agencyDao.findByCode(code).get();
     }
 }

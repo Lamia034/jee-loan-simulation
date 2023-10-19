@@ -31,7 +31,8 @@ public class CreditServlet extends HttpServlet {
         request.setAttribute("clients", clientService.findAllClients());
         request.setAttribute("agencies", agencyService.find());
         request.setAttribute("emploies", employeeService.findAll());
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        System.out.println(agencyService.find().size());
+        request.getRequestDispatcher("/credit.jsp").forward(request, response);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class CreditServlet extends HttpServlet {
             );
             credit.setClient(
                     clientService.findClientByCode(
-                            request.getParameter("client")
+                            Integer.parseInt(request.getParameter("client"))
                     )
             );
             credit.setEmployee(
