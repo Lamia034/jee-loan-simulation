@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Data
 @Entity
+@Inheritance
 public class Employee extends Person{
     @NonNull
     @Id

@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -29,17 +32,19 @@ public class Credit {
     @NonNull
     private double loanTax;
     @OneToOne
-    //@Column(name = "client_code")
     private Client client;
     @NonNull
     @ManyToOne
-    //@Column(name = "agency_code")
     private Agency agency;
     @NonNull
     @ManyToOne
-    //@Column(name = "employee_registrationNbr")
     private Employee employee;
     @NonNull
-    @ManyToOne
-    private Credit credit;
+   // @Column(name = "modification_date")
+    private LocalDate modification_date;
+    @NonNull
+    //@Column(name = "modification_time")
+    private LocalTime modification_time;
+
+
 }

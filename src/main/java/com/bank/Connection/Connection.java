@@ -11,8 +11,17 @@ public class Connection {
     private static Connection c = null;
 
     private Connection(){
-        entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("default");
+            entityManager = entityManagerFactory.createEntityManager();
+
+            System.out.println("Connected to the database.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public static Connection getInstance(){
@@ -24,6 +33,7 @@ public class Connection {
     }
 
     public static EntityManager getManager(){
+
         return c.entityManager;
     }
 }

@@ -3,7 +3,12 @@ const amountDisplayer = document.querySelector(".amount");
 const monthsRange = document.querySelector(".range-input");
 const monthsDisplayer = document.querySelectorAll(".months");
 const totalDisplayer = document.querySelector(".total");
-total = 0;
+const backBtn = document.querySelectorAll(".backTo");
+const form1 = document.querySelector(".form1");
+const form2 = document.querySelector(".form2");
+const form3 = document.querySelector(".form3");
+let toggleState = 1;
+let total = 0;
 const interest = 7;
 let month = 4;
 monthsRange.addEventListener("input", (e)=>{
@@ -20,6 +25,23 @@ amountInput.addEventListener("input", (e)=>{
     total = Number.parseInt(e.target.value);
     amountDisplayer.innerText = total + " dh";
     totalDisplayer.innerText = calcule(total) + " dh";
+});
+
+backBtn.forEach(btn =>{
+    btn.addEventListener('click', (e)=>{
+        console.log("clicked");
+        if(toggleState == 1){
+            form1.classList.remove("hidden");
+            form2.classList.remove("hidden");
+            form3.classList.add("hidden");
+            toggleState = 2;
+        }else if(toggleState == 2){
+            form1.classList.add("hidden");
+            form2.classList.add("hidden");
+            form3.classList.remove("hidden");
+            toggleState = 1;
+        }
+    });
 });
 
 const calcule = (value)=>{
