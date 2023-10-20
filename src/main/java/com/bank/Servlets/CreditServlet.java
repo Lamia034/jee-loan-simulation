@@ -31,40 +31,57 @@ public class CreditServlet extends HttpServlet {
         request.setAttribute("clients", clientService.findAllClients());
         request.setAttribute("agencies", agencyService.find());
         request.setAttribute("emploies", employeeService.findAll());
-        System.out.println(agencyService.find().size());
         request.getRequestDispatcher("/credit.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
+            System.out.println("duration:"+request.getParameter("duration"));
+            System.out.println("amount:"+request.getParameter("amount"));
             credit.setLoanTax(
                     Double.parseDouble(request.getParameter("tax"))
             );
+            System.out.println(credit.getLoanTax());
             credit.setStatus(CreditStatus.PENDING);
+            System.out.println(credit.getStatus());
             credit.setDuration(
                     Integer.parseInt(request.getParameter("duration"))
             );
+            System.out.println(credit.getDuration());
             credit.setValue(
                     Integer.parseInt(
-                            request.getParameter("value")
+                            request.getParameter("amount")
                     )
             );
+            System.out.println(credit.getValue());
             credit.setClient(
                     clientService.findClientByCode(
                             Integer.parseInt(request.getParameter("client"))
                     )
             );
+            credit.setRemark(
+                    request.getParameter("remark")
+            );
             credit.setEmployee(
                     employeeService.findByRegistrationNbr(
-                            Integer.parseInt(request.getParameter("client"))
+                            Integer.parseInt(request.getParameter("employee"))
+                    )
+            );
+            credit.setAgency(
+                    agencyService.findByCode(
+                            request.getParameter("agency")
                     )
             );
             if(creditService.addCredit(credit) != null){
                 request.getRequestDispatcher("/dash.jsp").forward(request, response);
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            request.setAttribute("error", "Impossible de créer le crédit...valeurs invalides");
+            request.setAttribute("clients", clientService.findAllClients());
+            request.setAttribute("agencies", agencyService.find());
+            request.setAttribute("emploies", employeeService.findAll());
+            request.getRequestDispatcher("/credit.jsp").forward(request, response);
         }
     }
 }

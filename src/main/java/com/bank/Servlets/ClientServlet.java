@@ -26,7 +26,7 @@ public class ClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("agencies", agencyService.find());
         request.setAttribute("emploies", employeeService.findAll());
-        System.out.println("agency size:"+agencyService.find().size());
+        request.setAttribute("clients", clientService.findAllClients());
         request.getRequestDispatcher("/client.jsp").forward(request, response);
     }
 
