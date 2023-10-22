@@ -57,12 +57,12 @@ public class ClientServlet extends HttpServlet {
             client.setAgency(
                     agencyService.findByCode(request.getParameter("agency"))
             );
-       //     System.out.println("employee===>");
-      //      client.setEmployee(
-           //         employeeService.findByRegistrationNbr(
-              //              Integer.parseInt(request.getParameter("employee"))
-              //      )
-        //    );
+           System.out.println("employee===>");
+           client.setEmployee(
+                   employeeService.findByRegistrationNbr(
+                            Integer.parseInt(request.getParameter("employee"))
+                  )
+            );
             System.out.println("client===>");
             boolean result = clientService.addClient(client);
             System.out.println("client servlet: " + result);

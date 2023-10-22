@@ -39,12 +39,18 @@ public class Credit {
     @NonNull
     @ManyToOne
     private Employee employee;
-    @NonNull
-   // @Column(name = "modification_date")
+
+    @Column(name = "modification_date")
     private LocalDate modification_date;
-    @NonNull
-    //@Column(name = "modification_time")
+
+    @Column(name = "modification_time")
     private LocalTime modification_time;
+
+    @PrePersist
+    protected void onPersist() {
+        modification_date = LocalDate.now();
+        modification_time = LocalTime.now();
+    }
 
 
 }

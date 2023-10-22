@@ -1,16 +1,24 @@
 package com.bank.Service;
 
 import com.bank.DAO.CreditDAOImpl;
+import com.bank.Entity.Client;
 import com.bank.Entity.Credit;
 import com.bank.Enum.CreditStatus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 @ApplicationScoped
 public class CreditService {
     @Inject
     private CreditDAOImpl creditDao;
+    public boolean addCredit(Credit credit){
+        boolean result = creditDao.create(credit);
+        return result;
+    }
 
     public double makeSimulation(int value, int n) throws Exception{
         if(value <= 1000)
@@ -21,11 +29,7 @@ public class CreditService {
         double b = Math.pow(1 -(1+(Credit.TAUX/n)), -n);
         return a/b;
     }
-    public Credit addCredit(Credit credit) throws Exception{
-        if(credit == null)
-            throw new Exception("***** LE CREDIT NE PEUT PAS ETRE VIDE   *****");
-        return creditDao.create(credit).get();
-    }
+
 
     public int deletecredit(int id) throws Exception{
         if(id <= 0)
@@ -44,8 +48,16 @@ public class CreditService {
             throw new Exception("*****   ID EST INVALIDE    *****");
         return creditDao.findById(id).get();
     }
-    public List<Credit> getAllCredits() throws Exception {
-        List<Credit> credits = creditDao.getAllCredits();
+    public List<Credit> findByDate(LocalDate date) throws Exception {
+        List<Credit> credits = creditDao.findByDate(date);
+        return credits;
+    }
+    public List<Credit> findByStatus(String status) throws Exception {
+        List<Credit> credits = creditDao.findByDate(LocalDate.parse(status));
+        return credits;
+    }
+    public List<Credit> findAll() throws Exception {
+        List<Credit> credits = creditDao.findAll();
         return credits;
 
 }

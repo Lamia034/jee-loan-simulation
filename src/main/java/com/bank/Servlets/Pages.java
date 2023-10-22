@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/")
+
 public class Pages extends HttpServlet {
 
     @Override

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +11,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
 </head>
@@ -30,11 +31,15 @@
     <div class="hidden z-50 bg-green-700 md:block w-full md:w-auto" id="mobile-menu">
       <ul class="flex-col justify-end md:flex-row flex md:space-x-20 mt-4 md:mt-0 md:text-lg md:font-medium">
         <li>
-          <a href="${pageContext.servletContext.contextPath}/simulation.jsp" class="  text-white block pl-3 pr-4 py-2 md:white md:p-0 rounded hover:text-green-700 rounded hover:p-3 hover:bg-white focus:outline-none" aria-current="page">Home</a>
+          <a href="${pageContext.servletContext.contextPath}/" class="  text-white block pl-3 pr-4 py-2 md:white md:p-0 rounded hover:text-green-700 rounded hover:p-3 hover:bg-white focus:outline-none" aria-current="page">Home</a>
         </li>
 
         <li>
-          <a href="${pageContext.servletContext.contextPath}/Credit"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">List Credits</a>
+          <a href="${pageContext.servletContext.contextPath}/ListCredits"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">List Credits</a>
+        </li>
+
+        <li>
+          <a href="${pageContext.servletContext.contextPath}/client"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">Add Client</a>
         </li>
 
         <li>

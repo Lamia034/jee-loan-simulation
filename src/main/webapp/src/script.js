@@ -49,3 +49,24 @@ const calcule = (value)=>{
     let b = 1 - Math.pow((1+(interest/12)), -month);
     return a/b;
 };
+
+
+
+const nextButton = document.getElementById("nextButton");
+
+nextButton.addEventListener("click", (e) => {
+    const valeurValue = total;
+    const mensualiteValue = month;
+
+
+    const amount = document.getElementById("amount");
+    const duration= document.getElementById("duration");
+
+
+    amount.value = valeurValue ;
+    duration.value = mensualiteValue ;
+
+    form1.classList.add("hidden");
+    form2.classList.remove("hidden");
+    toggleState = 2;
+});
