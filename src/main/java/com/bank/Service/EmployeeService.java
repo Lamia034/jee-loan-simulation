@@ -4,8 +4,10 @@ import com.bank.DAO.EmployeeDAOImpl;
 import com.bank.Entity.Employee;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +20,16 @@ public class EmployeeService {
         this.EmployeeDao = EmployeeDao;
     }*/
 
-
+    public Employee findByRegistrationNbr(int registrationNbr) throws Exception{
+        if (registrationNbr <= 0)
+            throw new Exception("*****   EMPLOYEE INVALIDE   *****");
+        return EmployeeDao.findByRegistrationNbr(registrationNbr).get();
+    }
 
     public Employee addEmployee(Employee emp, LocalDate date) throws Exception{
             if(emp == null || date == null)
                 throw new Exception("*****   EMPLOYEE|DATE EST INVALIDE   *****");
-            Optional<Employee> optionalEmp = EmployeeDao.create(emp, date);
+            Optional<Employee> optionalEmp = EmployeeDao.create(emp);
             return optionalEmp.get();
     }
 
@@ -60,7 +66,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(){
-        return EmployeeDao.findAll().get();
+        return EmployeeDao.findAll().orElse(new ArrayList<Employee>());
     }
 
 }

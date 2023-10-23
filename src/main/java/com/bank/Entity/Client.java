@@ -1,8 +1,7 @@
 package com.bank.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,17 +13,16 @@ import java.util.*;
 @RequiredArgsConstructor
 @Data
 @Entity
+@Inheritance
 public class Client extends Person{
     @NonNull
     @Id
-    private String code;
+    @GeneratedValue
+    private int code;
     @NonNull
     @ManyToOne
     public Employee employee;
     @NonNull
     @ManyToOne
     private Agency agency;
-
-
-
 }

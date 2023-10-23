@@ -9,17 +9,12 @@
         </description>
         <provider >org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-<!--        <class>com.bank.Entity.Agency</class>-->
-<!--        <class>com.bank.Entity.Employee</class>-->
-<!--        <class>com.bank.Entity.Client</class>-->
-<!--        <class>com.bank.Entity.Credit</class>-->
-<!--        <class>com.bank.Entity.AgencyEmployee</class>-->
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernate"/>
             <property name="jakarta.persistence.jdbc.user" value="aymane"/>
             <property name="jakarta.persistence.jdbc.password" value="aymane@123"/>
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="jakarta.persistence.schema-generation.database.action" value="create" />
             <property name = "hibernate.show_sql" value = "true" />
         </properties>
     </persistence-unit>

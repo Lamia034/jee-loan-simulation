@@ -2,38 +2,41 @@ package com.bank.Service;
 
 import com.bank.DAO.ClientDAOImpl;
 import com.bank.Entity.Client;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class ClientService {
+    @Inject
     private ClientDAOImpl ClientDao;
-    public ClientService(){
-        ClientDao = new ClientDAOImpl();
-    }
 
-    public void addClient(Client clt){
-        Optional<Client> optionalClt = ClientDao.create(clt);
-        optionalClt.ifPresent(val->System.out.println(String.format("*****   AJOUT D'UN CLIENT AVEC CODE[%s]   *****", val.getCode())));
+    public boolean addClient(Client clt){
+        boolean result = ClientDao.create(clt);
+        return result;
     }
-    public void deleteClient(String code){
+    public void deleteClient(int code){
         int result = ClientDao.delete(code);
         System.out.println(String.format("*****   NOMBRE DES ELEMENTS SUPPRIMEES EST:%d   *****", result));
     }
 
-    public void findAllClients(){
+    public List<Client> findAllClients(){
         try{
             Optional<List<Client>> listClt= ClientDao.findAll();
-            listClt.ifPresent((list)->{
-                for(Client clt:list)
-                    System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s]  EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
-            });
+            return listClt.get();
+//            listClt.ifPresent((list)->{
+//                for(Client clt:list)
+//                    System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s]  EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
+//            });
         }catch(Exception e){
             System.out.println(e.getClass()+"::"+e.getMessage());
         }
+        return null;
     }
 
-    public Client findClientByCode(String code){
+    public Client findClientByCode(int code){
             Optional<Client> Clt= ClientDao.findByCode(code);
             Clt.ifPresent((clt)->{
                 System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s] EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));

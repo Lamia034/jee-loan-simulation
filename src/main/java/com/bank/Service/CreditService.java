@@ -3,12 +3,13 @@ package com.bank.Service;
 import com.bank.DAO.CreditDAOImpl;
 import com.bank.Entity.Credit;
 import com.bank.Enum.CreditStatus;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
+@ApplicationScoped
 public class CreditService {
+    @Inject
     private CreditDAOImpl creditDao;
-    public CreditService(CreditDAOImpl creditDao){
-        this.creditDao = creditDao;
-    }
     public double makeSimulation(int value, int n) throws Exception{
         if(value <= 1000)
             throw new Exception("*****   LE MONTANT DOIT ETRE SUPERIEUR DE 1000   *****");
