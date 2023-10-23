@@ -13,6 +13,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +75,7 @@ public class CreditDAOImpl implements CreditDAO {
             entityManager.getTransaction().commit();
             if (credit != null) {
                 credit.setStatus(status);
+
                 entityManager.getTransaction().begin();
                 entityManager.merge(credit);
                 entityManager.getTransaction().commit();
@@ -84,6 +86,7 @@ public class CreditDAOImpl implements CreditDAO {
         }
         return Optional.empty();
     }
+
 
     @Override
     public Optional<Credit> findById(int id) {

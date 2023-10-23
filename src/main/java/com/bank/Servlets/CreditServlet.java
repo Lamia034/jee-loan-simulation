@@ -12,13 +12,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import com.bank.Entity.Credit;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@WebServlet( name= "CreditServlet" ,urlPatterns = {"/","/ListCredits","find-date","/find-status","/get-credit-details"})
+@WebServlet( name= "CreditServlet" ,urlPatterns = {"/","/ListCredits","find-date","/find-status","update-status","/get-credit-details"})
 public class CreditServlet extends HttpServlet {
     @Inject
     private Credit credit;
@@ -74,31 +75,8 @@ public class CreditServlet extends HttpServlet {
                     throw new RuntimeException(e);
                 }
                 break;
-            case "/get-credit-details":
-                int creditId = Integer.parseInt(request.getParameter("creditId"));
-                Credit credit = null;
-                try {
-                    credit = creditService.findById(creditId);
-
-                    JSONObject json = new JSONObject();
-                    json.put("amount", credit.getValue());
-                    json.put("duration", credit.getDuration());
-                    json.put("remark", credit.getRemark());
-                    json.put("client", credit.getClient().getCode());
-                    json.put("employee", credit.getEmployee().getRegistrationNbr());
-                    json.put("agency", credit.getAgency().getCode());
 
 
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-
-                    response.getWriter().write(json.toString());
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-    
-                break;
             }
 
         }
@@ -109,46 +87,73 @@ public class CreditServlet extends HttpServlet {
         this.requestURL = request.getServletPath();
 
 
-        try {
-            System.out.println("in");
-            System.out.println("duration:" + request.getParameter("duration"));
-            System.out.println("amount:" + request.getParameter("amount"));
-            credit.setLoanTax(Double.parseDouble(request.getParameter("tax")));
-            System.out.println("here is the tax:" +credit.getLoanTax());
-            credit.setStatus(CreditStatus.PENDING);
-            System.out.println(credit.getStatus());
-            credit.setDuration(Integer.parseInt(request.getParameter("duration")));
-            System.out.println("here is f dusration:" +credit.getDuration());
-            credit.setValue(Integer.parseInt(request.getParameter("amount")));
-            System.out.println(credit.getValue());
-            System.out.println(request.getParameter("client"));
-            credit.setClient(clientService.findClientByCode(Integer.parseInt(request.getParameter("client"))));
-            System.out.println("here is the client" +credit.getClient());
-            System.out.println("remark:" + request.getParameter("remark"));
-            credit.setRemark(request.getParameter("remark"));
-            System.out.println(credit.getRemark());
-            credit.setEmployee(employeeService.findByRegistrationNbr(Integer.parseInt(request.getParameter("employee"))));
-            credit.setAgency(agencyService.findByCode(request.getParameter("agency")));
-            System.out.println("credit===>");
-            boolean result = creditService.addCredit(credit);
-            System.out.println("client servlet: " + result);
-            if (result) {
-                request.setAttribute("created", true);
-            } else {
-                request.setAttribute("created", false);
-            }
+        switch (this.requestURL) {
+            case "/":
+                try {
+                    System.out.println("in");
+                    System.out.println("duration:" + request.getParameter("duration"));
+                    System.out.println("amount:" + request.getParameter("amount"));
+                    credit.setLoanTax(Double.parseDouble(request.getParameter("tax")));
+                    System.out.println("here is the tax:" + credit.getLoanTax());
+                    credit.setStatus(CreditStatus.PENDING);
+                    System.out.println(credit.getStatus());
+                    credit.setDuration(Integer.parseInt(request.getParameter("duration")));
+                    System.out.println("here is f dusration:" + credit.getDuration());
+                    credit.setValue(Integer.parseInt(request.getParameter("amount")));
+                    System.out.println(credit.getValue());
+                    System.out.println(request.getParameter("client"));
+                    credit.setClient(clientService.findClientByCode(Integer.parseInt(request.getParameter("client"))));
+                    System.out.println("here is the client" + credit.getClient());
+                    System.out.println("remark:" + request.getParameter("remark"));
+                    credit.setRemark(request.getParameter("remark"));
+                    System.out.println(credit.getRemark());
+                    credit.setEmployee(employeeService.findByRegistrationNbr(Integer.parseInt(request.getParameter("employee"))));
+                    credit.setAgency(agencyService.findByCode(request.getParameter("agency")));
+                    System.out.println("credit===>");
+                    boolean result = creditService.addCredit(credit);
+                    System.out.println("client servlet: " + result);
+                    if (result) {
+                        request.setAttribute("created", true);
+                    } else {
+                        request.setAttribute("created", false);
+                    }
 
-            request.setAttribute("credits", creditService.findAll());
-            request.getRequestDispatcher("/ListCredits.jsp").forward(request, response);
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }    }
+                    request.setAttribute("credits", creditService.findAll());
+                    request.getRequestDispatcher("/ListCredits.jsp").forward(request, response);
 
 
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
+            case "/update-status":
+
+                int creditId = Integer.parseInt(request.getParameter("creditId"));
+                String newStatus = String.valueOf(Integer.parseInt(request.getParameter("status")));
+
+                Credit result = null;
+                try {
+                    result = creditService.updateStatus(creditId, CreditStatus.valueOf(newStatus));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (result != null) {
+                    try {
+                        request.setAttribute("credits", creditService.findAll());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    request.getRequestDispatcher("/ListCredits.jsp").forward(request, response);
+                } else {
+                    System.out.println("ok");
+                }
+                break;
+        }
 
 
+    }
 
     }
 

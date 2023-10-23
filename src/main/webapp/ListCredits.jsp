@@ -76,7 +76,7 @@
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
 <c:forEach items="${credits}" var="credit">
-                        <tr>
+                        <tr  data-credit-id="${credit.id}">
                             <td class="p-2 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov"></div>
@@ -105,7 +105,16 @@
                                 <div class="text-lg text-center">${credit.remark}</div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
-                                <div class="text-lg text-center">${credit.status} <button id="changeButton" class="rounded-full bg-blue-600">Change</button></div>
+                                <div class="text-lg text-center">${credit.status} ><form action="${pageContext.servletContext.contextPath}/update-status" method="post">
+                                    <input type="hidden" name="creditId" value="${credit.id}">
+                                    <select name="creditStatus" data-te-select-init class="rounded">
+                                        <option value="1">Pending</option>
+                                        <option value="2">Accepted</option>
+                                        <option value="3">Refused</option>
+                                    </select>
+                                    <button type="submit">Update</button>
+                                </form>
+                                </div>
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div class="text-lg text-center">${credit.modification_date} ${credit.modification_time}</div>
@@ -166,30 +175,7 @@
         </div>
     </form>
 </div>
-<script>
-    const changeButton = document.getElementById("changeButton");
-    const popup = document.getElementById("popup");
 
-    changeButton.addEventListener("click", () => {
-        popup.classList.remove("hidden");
-
-        const creditId = <%= creditId %>;
-
-        fetch(`/get-credit-details?creditId=${creditId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                document.getElementById("amount").value = data.amount;
-                document.getElementById("duration").value = data.duration;
-                document.getElementById("remark").value = data.remark;
-                document.getElementById("client").value = data.client;
-                document.getElementById("employee").value = data.employee;
-                document.getElementById("agency").value = data.agency;
-            })
-            .catch((error) => {
-                console.error("Error fetching credit details: " + error);
-            });
-    });
-</script>
 
 <script>
     if(${created})
