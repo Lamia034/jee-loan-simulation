@@ -8,7 +8,12 @@ import com.bank.Exception.InsertionException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 @ApplicationScoped
 public class CreditDAOImpl implements CreditDAO {
@@ -90,5 +95,44 @@ public class CreditDAOImpl implements CreditDAO {
             System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Credit> findAll() {
+        entityManager.getTransaction().begin();
+        TypedQuery<Credit> query = entityManager.createQuery("SELECT c FROM Credit c", Credit.class);
+        entityManager.getTransaction().commit();
+        return query.getResultList();
+    }
+    @Override
+    public List<Credit> findByDate(LocalDate date){
+        try {
+            entityManager.getTransaction().begin();
+            TypedQuery<Credit> query = entityManager.createQuery("SELECT c FROM Credit c WHERE c.modification_date = :date", Credit.class);
+            query.setParameter("date", date);
+            List<Credit> credits = query.getResultList();
+            entityManager.getTransaction().commit();
+            return credits;
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
+            entityManager.getTransaction().rollback();
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Credit> findByStatus(String status){
+        try {
+            entityManager.getTransaction().begin();
+            TypedQuery<Credit> query = entityManager.createQuery("SELECT c FROM Credit c WHERE c.status = :status", Credit.class);
+            query.setParameter("status", status);
+            List<Credit> credits = query.getResultList();
+            entityManager.getTransaction().commit();
+            return credits;
+        } catch (Exception e) {
+            System.out.println(e.getClass() + "::" + e.getMessage());
+            entityManager.getTransaction().rollback();
+            return Collections.emptyList();
+        }
     }
 }

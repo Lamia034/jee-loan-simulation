@@ -74,7 +74,7 @@ public class CreditServlet extends HttpServlet {
                     )
             );
             if(creditService.addCredit(credit) != null){
-                request.getRequestDispatcher("/dash.jsp").forward(request, response);
+                request.getRequestDispatcher("/ListCredits.jsp").forward(request, response);
             }
         }catch(Exception e){
             request.setAttribute("error", "Impossible de créer le crédit...valeurs invalides");

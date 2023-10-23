@@ -18,7 +18,6 @@ public class Connection {
     public static Connection getInstance(){
         if(c == null){
             c = new Connection();
-            return  c;
         }
         return c;
     }

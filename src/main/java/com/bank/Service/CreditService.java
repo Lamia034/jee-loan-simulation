@@ -6,6 +6,9 @@ import com.bank.Enum.CreditStatus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @ApplicationScoped
 public class CreditService {
     @Inject
@@ -41,5 +44,18 @@ public class CreditService {
         if(id <= 0)
             throw new Exception("*****   ID EST INVALIDE    *****");
         return creditDao.findById(id).get();
+    }
+    public List<Credit> findByDate(LocalDate date) throws Exception {
+        List<Credit> credits = creditDao.findByDate(date);
+        return credits;
+    }
+    public List<Credit> findByStatus(String status) throws Exception {
+        List<Credit> credits = creditDao.findByStatus(status);
+        return credits;
+    }
+    public List<Credit> findAll() throws Exception {
+        List<Credit> credits = creditDao.findAll();
+        return credits;
+
     }
 }

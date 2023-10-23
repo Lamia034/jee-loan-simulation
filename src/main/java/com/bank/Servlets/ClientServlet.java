@@ -33,7 +33,6 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            System.out.println("here we go");
             System.out.println(client == null);
             client.setFirstName(
                     request.getParameter("firstName")

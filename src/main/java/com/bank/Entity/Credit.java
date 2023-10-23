@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -36,4 +39,15 @@ public class Credit {
     @NonNull
     @ManyToOne
     private Employee employee;
+    @Column(name = "modification_date")
+    private LocalDate modification_date;
+
+    @Column(name = "modification_time")
+    private LocalTime modification_time;
+
+    @PrePersist
+    protected void onPersist() {
+        modification_date = LocalDate.now();
+        modification_time = LocalTime.now();
+    }
 }

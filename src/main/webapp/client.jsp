@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="WEB-INF/assets/header.jsp"%>
-<div class="bg-white p-6 flex flex-col gap-5">
+<div class="flex justify-center items-center mt-10">
   <div class="w-[500px] rounded-sm p-4 bg-white">
     <form action="${pageContext.servletContext.contextPath}/client" method="POST" class="w-full flex flex-col justify-center items-start gap-3">
       <p class="text-center w-full font-bold">Formulaire d'ajout</p>

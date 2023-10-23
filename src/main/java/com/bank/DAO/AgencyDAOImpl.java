@@ -14,8 +14,6 @@ import java.util.Optional;
 public class AgencyDAOImpl implements AgencyDAO {
     private Connection c = Connection.getInstance();
     private EntityManager entityManager = c.getManager();
-    //@PersistenceContext(name = "default")
-    //private EntityManager entityManager;
 
     @Override
     @Transactional

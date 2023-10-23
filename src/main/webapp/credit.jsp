@@ -9,8 +9,8 @@
             showCancelButton: true
         })
 </script>
-<a href="${pageContext.servletContext.contextPath}/client" class="p-4 bg-[#015CC8] rounded-md text-white absolute top-10 right-10">Ajouter client</a>
-<body class="bg-[#EEF1F6] flex justify-center items-center gap-8 w-screen h-screen">
+<a href="${pageContext.servletContext.contextPath}/client" class="p-4 bg-[#015CC8] rounded-md text-white absolute top-30 right-10">Ajouter client</a>
+<div class="bg-[#EEF1F6] flex justify-center items-center gap-8 w-screen h-screen">
 <div class="w-[400px] bg-white p-6 flex flex-col gap-5 form1">
     <p class="font-bold">Crédit Simulation</p>
     <div class="flex flex-col gap-4">
@@ -97,6 +97,7 @@
             <span class="w-full bg-gray-300 p-4 text-black rounded-md text-center cursor-pointer backTo">Revenir</span>
         </div>
     </form>
+</div>
 </div>
 <script src="${pageContext.servletContext.contextPath}/src/script.js" type="text/javascript"></script>
 <%@ include file="/WEB-INF/assets/footer.jsp" %>
