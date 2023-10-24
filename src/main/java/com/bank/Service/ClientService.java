@@ -18,7 +18,7 @@ public class ClientService {
         return result;
     }
     public void deleteClient(int code){
-        int result = ClientDao.delete(Integer.parseInt(String.valueOf(code)));
+        int result = ClientDao.delete(code);
         System.out.println(String.format("*****   NOMBRE DES ELEMENTS SUPPRIMEES EST:%d   *****", result));
     }
 
@@ -37,17 +37,17 @@ public class ClientService {
     }
 
     public Client findClientByCode(int code){
-        Optional<Client> Clt= ClientDao.findByCode(Integer.parseInt(String.valueOf(code)));
-        Clt.ifPresent((clt)->{
-            System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s] EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
-        });
+            Optional<Client> Clt= ClientDao.findByCode(code);
+            Clt.ifPresent((clt)->{
+                System.out.println(String.format("*****   CODE[%s] NOM[%s] PRENOM[%s] DATE_NAISSANCE[%s] TELE[%s] ADRESSE[%s] EMPLOYEE_REGISTRATION[%d]   *****", clt.getCode(), clt.getFirstName(), clt.getLastName(), clt.getBirthDay().toString(), clt.getPhone(), clt.getAddress(), clt.getEmployee().getRegistrationNbr()));
+            });
         return Clt.get();
     }
 
     public void updateClient(Client clt){
-        ClientDao.update(clt).ifPresent((listEmp)->{
-            System.out.println("*****   CLIENT MODIFIER AVEC SUCCESS   *****");
-        });
+            ClientDao.update(clt).ifPresent((listEmp)->{
+                System.out.println("*****   CLIENT MODIFIER AVEC SUCCESS   *****");
+            });
     }
     public void findClientByAttribute(Client clt){
         ClientDao.find(clt).ifPresent((listClt)->{

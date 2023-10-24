@@ -1,8 +1,6 @@
-
 package com.bank.DAO;
 
 import com.bank.Entity.Client;
-import com.bank.Entity.Credit;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +13,4 @@ public interface ClientDAO {
     public Optional<Client> findByCode(int code);
     public Optional<List<Client>> findAll();
     public Optional<List<Client>> find(Client client);
-
-
 }

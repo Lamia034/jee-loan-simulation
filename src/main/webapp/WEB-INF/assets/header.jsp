@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-  <title>test</title>
+  <title>EasyBank</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="${pageContext.servletContext.contextPath}/src/dist/output.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
@@ -13,12 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/datepicker.min.js"></script>
 </head>
-
-<body class="bg-[#EEF1F6]  w-screen h-screen font-poppins">
-
-<nav class="bg-green-700 z-50 border-green-700 h-16 flex justify-evenly px-6">
+<body class="bg-[#EEF1F6] flex w-screen h-screen font-poppins flex flex-col">
+<nav class="bg-green-700 z-50 border-green-700 h-16 flex justify-evenly md:items-center px-6 py-4 w-screen">
   <div class="container mx-auto flex flex-wrap justify-between items-center md:justify-center ">
     <a href="#" class="flex md:items-center">
       <span class=""><img class="h-10 w-15 pr-10 " src="${pageContext.servletContext.contextPath}/src/images/banklogo.png" alt="logo"></span>
@@ -31,33 +27,21 @@
     <div class="hidden z-50 bg-green-700 md:block w-full md:w-auto" id="mobile-menu">
       <ul class="flex-col justify-end md:flex-row flex md:space-x-20 mt-4 md:mt-0 md:text-lg md:font-medium">
         <li>
-          <a href="${pageContext.servletContext.contextPath}/" class="  text-white block pl-3 pr-4 py-2 md:white md:p-0 rounded hover:text-green-700 rounded hover:p-3 hover:bg-white focus:outline-none" aria-current="page">Home</a>
+          <a href="${pageContext.servletContext.contextPath}/" class="  text-white block pl-3 pr-4 py-2 md:white md:p-2 rounded hover:text-green-700 rounded p-3 hover:bg-white focus:outline-none" aria-current="page">Home</a>
         </li>
 
         <li>
-          <a href="${pageContext.servletContext.contextPath}/ListCredits"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">List Credits</a>
+          <a href="${pageContext.servletContext.contextPath}/ListCredits"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded p-3 hover:bg-white md:p-2">List Credits</a>
         </li>
 
         <li>
-          <a href="${pageContext.servletContext.contextPath}/client"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">Add Client</a>
+          <a href="${pageContext.servletContext.contextPath}/client"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded p-3 hover:bg-white md:p-2">Add Client</a>
         </li>
 
         <li>
-          <a href="#" class="text-white border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">Contact</a>
+          <a href="#" class="text-white border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded p-3 hover:bg-white md:p-2">Contact</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const menuButton = document.querySelector('[data-collapse-toggle="mobile-menu"]');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuButton.addEventListener("click", function () {
-    mobileMenu.classList.toggle("hidden");
-  });
-  });
-</script>
-

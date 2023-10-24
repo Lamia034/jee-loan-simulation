@@ -37,7 +37,6 @@ public class ClientDAOImpl implements ClientDAO {
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            System.out.println("wa khsar");
             System.out.println(e.getClass() + "::" + e.getMessage());
         }
         return false;

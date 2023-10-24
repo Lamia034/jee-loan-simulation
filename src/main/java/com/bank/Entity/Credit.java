@@ -39,7 +39,6 @@ public class Credit {
     @NonNull
     @ManyToOne
     private Employee employee;
-
     @Column(name = "modification_date")
     private LocalDate modification_date;
 
@@ -51,6 +50,4 @@ public class Credit {
         modification_date = LocalDate.now();
         modification_time = LocalTime.now();
     }
-
-
 }

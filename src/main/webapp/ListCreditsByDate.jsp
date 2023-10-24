@@ -5,32 +5,23 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <%@ include file="/WEB-INF/assets/header.jsp" %>
 <div class="flex justify-around mt-3">
 
 
-    <form action="${pageContext.servletContext.contextPath}/find-date"  method="get" class="relative max-w-sm">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
-        </div>
-        <input datepicker type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-        <button type="submit">x</button>
+    <form action="${pageContext.servletContext.contextPath}/find-date"  method="get" class="relative max-w-sm flex gap-3">
+        <input name="date" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+        <button type="submit" class="p-2 text-white bg-[#1A56DB] rounded-md">chercher</button>
     </form>
 
-
-    <select data-te-select-init class="rounded">
-        <option value="1">All</option>
-        <option value="2">Pending&</option>
-        <option value="2">Accepted</option>
-        <option value="3">Refused</option>
-    </select>
+    <form action="${pageContext.servletContext.contextPath}/find-status" method="get" class="flex gap-3">
+        <select data-te-select-init class="rounded" name="status">
+            <option value="PENDING">Pending</option>
+            <option value="ACCEPTED">Accepted</option>
+            <option value="REFUSED">Refused</option>
+        </select>
+        <button type="submit" class="p-2 text-white bg-[#1A56DB] rounded-md">chercher</button>
+    </form>
 </div>
 <!-- Table -->
 <div class=" bg-white shadow-lg pt-5 m-3 rounded-sm border border-gray-200">
@@ -135,4 +126,4 @@
     import { Select, initTE } from "tw-elements";
     initTE({ Select });
 </script>
-<script src="../path/to/flowbite/dist/datepicker.js"></script>
+<%@ include file="/WEB-INF/assets/footer.jsp" %>

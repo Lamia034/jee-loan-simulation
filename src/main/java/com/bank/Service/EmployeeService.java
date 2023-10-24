@@ -27,10 +27,10 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(Employee emp, LocalDate date) throws Exception{
-        if(emp == null || date == null)
-            throw new Exception("*****   EMPLOYEE|DATE EST INVALIDE   *****");
-        Optional<Employee> optionalEmp = EmployeeDao.create(emp);
-        return optionalEmp.get();
+            if(emp == null || date == null)
+                throw new Exception("*****   EMPLOYEE|DATE EST INVALIDE   *****");
+            Optional<Employee> optionalEmp = EmployeeDao.create(emp);
+            return optionalEmp.get();
     }
 
     public int deleteEmployee(int registrationNbr) throws Exception{

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CreditDAO {
-    public  boolean create(Credit credit);
+    public Optional<Credit> create(Credit credit);
     public int delete(int id);
     public Optional<Credit> updateStatus(int id, CreditStatus status);
     public Optional<Credit> findById(int id);

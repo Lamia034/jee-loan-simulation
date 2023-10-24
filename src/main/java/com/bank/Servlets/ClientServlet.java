@@ -26,14 +26,13 @@ public class ClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("agencies", agencyService.find());
         request.setAttribute("emploies", employeeService.findAll());
-        System.out.println("agency size:"+agencyService.find().size());
+        request.setAttribute("clients", clientService.findAllClients());
         request.getRequestDispatcher("/client.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            System.out.println("here we go");
             System.out.println(client == null);
             client.setFirstName(
                     request.getParameter("firstName")
@@ -57,11 +56,11 @@ public class ClientServlet extends HttpServlet {
             client.setAgency(
                     agencyService.findByCode(request.getParameter("agency"))
             );
-           System.out.println("employee===>");
-           client.setEmployee(
-                   employeeService.findByRegistrationNbr(
+            System.out.println("employee===>");
+            client.setEmployee(
+                    employeeService.findByRegistrationNbr(
                             Integer.parseInt(request.getParameter("employee"))
-                  )
+                    )
             );
             System.out.println("client===>");
             boolean result = clientService.addClient(client);

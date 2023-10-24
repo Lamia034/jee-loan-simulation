@@ -1,7 +1,6 @@
 package com.bank.DAO;
 
 import com.bank.Connection.Connection;
-import com.bank.Entity.Client;
 import com.bank.Entity.Credit;
 import com.bank.Enum.CreditStatus;
 import com.bank.Exception.InsertionException;
@@ -13,7 +12,6 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -25,21 +23,19 @@ public class CreditDAOImpl implements CreditDAO {
 
     @Override
     @Transactional
-    public boolean create(Credit credit) {
+    public Optional<Credit> create(Credit credit) {
         try {
             entityManager.getTransaction().begin();
             if (credit == null)
-                throw new Exception("***** Impossible d'ajouter un credit vide *****");
+                throw new Exception("***** LE CREDIT NE PEUT PAS ETRE VIDE *****");
             entityManager.persist(credit);
             entityManager.getTransaction().commit();
-            return true;
+            return Optional.of(credit);
         } catch (Exception e) {
-            System.out.println("wa khsar");
             System.out.println(e.getClass() + "::" + e.getMessage());
         }
-        return false;
+        return Optional.empty();
     }
-
 
     @Override
     @Transactional
@@ -75,7 +71,6 @@ public class CreditDAOImpl implements CreditDAO {
             entityManager.getTransaction().commit();
             if (credit != null) {
                 credit.setStatus(status);
-
                 entityManager.getTransaction().begin();
                 entityManager.merge(credit);
                 entityManager.getTransaction().commit();
@@ -86,7 +81,6 @@ public class CreditDAOImpl implements CreditDAO {
         }
         return Optional.empty();
     }
-
 
     @Override
     public Optional<Credit> findById(int id) {
@@ -102,6 +96,7 @@ public class CreditDAOImpl implements CreditDAO {
         }
         return Optional.empty();
     }
+
     @Override
     public List<Credit> findAll() {
         entityManager.getTransaction().begin();
@@ -130,7 +125,7 @@ public class CreditDAOImpl implements CreditDAO {
         try {
             entityManager.getTransaction().begin();
             TypedQuery<Credit> query = entityManager.createQuery("SELECT c FROM Credit c WHERE c.status = :status", Credit.class);
-            query.setParameter("status", status);
+            query.setParameter("status", CreditStatus.valueOf(status));
             List<Credit> credits = query.getResultList();
             entityManager.getTransaction().commit();
             return credits;
@@ -140,7 +135,4 @@ public class CreditDAOImpl implements CreditDAO {
             return Collections.emptyList();
         }
     }
-
-
-
 }
