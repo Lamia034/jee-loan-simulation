@@ -14,8 +14,8 @@
     <button type="submit" class="p-2 text-white bg-[#1A56DB] rounded-md">chercher</button>
   </form>
 
-  <form method="${pageContext.servletContext.contextPath}/find-status" method="get" class="flex gap-3">
-    <select data-te-select-init class="rounded" name="status">
+  <form action="${pageContext.servletContext.contextPath}/find-status" method="get" class="flex gap-3">
+    <select data-te-select-init class="rounded p-4" name="status">
       <option value="PENDING">Pending</option>
       <option value="ACCEPTED">Accepted</option>
       <option value="REFUSED">Refused</option>
@@ -68,7 +68,6 @@
           <tr>
             <td class="p-2 whitespace-nowrap">
               <div class="flex items-center">
-                <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov"></div>
                 <div class="text-left pr-2">${credit.client.firstName}</div>
                 <div class="text-left">${credit.client.lastName}</div>
               </div>

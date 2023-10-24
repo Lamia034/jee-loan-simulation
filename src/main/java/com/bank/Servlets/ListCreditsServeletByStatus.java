@@ -1,5 +1,6 @@
 package com.bank.Servlets;
 
+import com.bank.Enum.CreditStatus;
 import com.bank.Service.CreditService;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -21,6 +22,21 @@ public class ListCreditsServeletByStatus extends HttpServlet {
             request.setAttribute("credits", creditService.findByStatus((request.getParameter("status"))));
             request.getRequestDispatcher("/ListCreditsByStatus.jsp").forward(request, response);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try{
+            creditService.updateStatus(
+                    Integer.parseInt(req.getParameter("id")),
+                    CreditStatus.valueOf(
+                            req.getParameter("status")
+                    )
+            );
+            resp.sendRedirect("/ListCredits");
+        }catch(Exception e){
             throw new RuntimeException(e);
         }
     }

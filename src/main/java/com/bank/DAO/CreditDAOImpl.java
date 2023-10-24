@@ -125,7 +125,7 @@ public class CreditDAOImpl implements CreditDAO {
         try {
             entityManager.getTransaction().begin();
             TypedQuery<Credit> query = entityManager.createQuery("SELECT c FROM Credit c WHERE c.status = :status", Credit.class);
-            query.setParameter("status", status);
+            query.setParameter("status", CreditStatus.valueOf(status));
             List<Credit> credits = query.getResultList();
             entityManager.getTransaction().commit();
             return credits;

@@ -24,19 +24,15 @@
     <div class="hidden z-50 bg-green-700 md:block w-full md:w-auto" id="mobile-menu">
       <ul class="flex-col justify-end md:flex-row flex md:space-x-20 mt-4 md:mt-0 md:text-lg md:font-medium">
         <li>
-          <a href="${pageContext.servletContext.contextPath}/" class="  text-white block pl-3 pr-4 py-2 md:white md:p-0 rounded hover:text-green-700 rounded hover:p-3 hover:bg-white focus:outline-none" aria-current="page">Home</a>
+          <a href="${pageContext.servletContext.contextPath}/" class="  text-white block pl-3 pr-4 py-2 md:white md:p-0 rounded hover:text-green-700 rounded hover:bg-white focus:outline-none" aria-current="page">Home</a>
         </li>
 
         <li>
-          <a href="${pageContext.servletContext.contextPath}/ListCredits"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">List Credits</a>
+          <a href="${pageContext.servletContext.contextPath}/ListCredits"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded  hover:bg-white md:p-0">List Credits</a>
         </li>
 
         <li>
-          <a href="${pageContext.servletContext.contextPath}/client"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">Add Client</a>
-        </li>
-
-        <li>
-          <a href="#" class="text-white border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:p-3 hover:bg-white md:p-0">Contact</a>
+          <a href="${pageContext.servletContext.contextPath}/client"  class="text-white hover:bg-green-300 border-b border-gray-100  md:border-0 block pl-3 pr-4 py-2 hover:text-green-700 rounded hover:bg-white md:p-0">Add Client</a>
         </li>
       </ul>
     </div>
