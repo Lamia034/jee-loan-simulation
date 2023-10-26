@@ -21,6 +21,10 @@ public class CreditDAOImpl implements CreditDAO {
     private Connection c = Connection.getInstance();
     private EntityManager entityManager = c.getManager();
 
+//    public CreditDAOImpl(){
+//        c = Connection.getInstance();
+//        entityManager = c.getManager();
+//    }
     @Override
     @Transactional
     public Optional<Credit> create(Credit credit) {

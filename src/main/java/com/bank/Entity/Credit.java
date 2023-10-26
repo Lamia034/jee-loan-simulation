@@ -45,6 +45,11 @@ public class Credit {
     @Column(name = "modification_time")
     private LocalTime modification_time;
 
+//    public Credit(int value, CreditStatus status, int duration, String remark, int i2, int i3, String agency1, int i4, String s, String time) {
+//        setValue();
+//        setStatus(status);
+//    }
+
     @PrePersist
     protected void onPersist() {
         modification_date = LocalDate.now();

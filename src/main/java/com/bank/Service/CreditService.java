@@ -1,6 +1,5 @@
 package com.bank.Service;
 
-import com.bank.DAO.CreditDAO;
 import com.bank.DAO.CreditDAOImpl;
 import com.bank.Entity.Credit;
 import com.bank.Enum.CreditStatus;
@@ -12,8 +11,16 @@ import java.util.List;
 
 @ApplicationScoped
 public class CreditService {
-    @Inject
+   @Inject
     private CreditDAOImpl creditDao;
+
+
+ //   private CreditDAOImpl creditDao;
+
+//    @Inject
+//    public CreditService(CreditDAOImpl creditDao) {
+//        this.creditDao = creditDao;
+//    }
 
 
     public double makeSimulation(int value, int n) throws Exception{
